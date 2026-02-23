@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LEDGER — Personal Finance Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,10 +22,10 @@
   --masthead-h: 58px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overscroll-behavior: none; }
 
-/* ── MASTHEAD ── */
+/* ── MASTHEAD (from ledger 10) ── */
 .masthead {
   background: var(--ink);
   border-bottom: 4px solid var(--gold);
@@ -36,22 +36,23 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
   z-index: 200;
   height: var(--masthead-h);
 }
-.m-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--paper); padding: 0 1.75rem; border-right: 2px solid #222; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0; }
+.m-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--paper); padding: 0 1.75rem; border-right: 2px solid #222; letter-spacing: 0.08em; display: flex; align-items: center; }
 .m-logo .star { color: var(--gold); font-size: 1.1rem; margin: 0 0.1rem; }
 .m-tag { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 0 1.25rem; display: flex; align-items: center; border-right: 1px solid #222; }
 .m-period { display: flex; align-items: center; gap: 0.4rem; padding: 0 1rem; border-right: 1px solid #222; }
-.period-arrow { background: none; border: 1px solid #333; color: var(--muted); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem; transition: all 0.15s; flex-shrink: 0; }
+.period-arrow { background: none; border: 1px solid #333; color: var(--muted); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.75rem; transition: all 0.15s; flex-shrink: 0; touch-action: manipulation; }
 .period-arrow:hover { border-color: var(--gold); color: var(--gold); }
 .period-label { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--paper); letter-spacing: 0.06em; min-width: 120px; text-align: center; }
 .period-mode { display: flex; }
-.pmode-btn { background: none; border: 1px solid #333; color: #555; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.22rem 0.5rem; cursor: pointer; transition: all 0.15s; font-family: 'Manrope', sans-serif; }
+.pmode-btn { background: none; border: 1px solid #333; color: #555; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.22rem 0.5rem; cursor: pointer; transition: all 0.15s; font-family: 'Manrope', sans-serif; touch-action: manipulation; }
+.pmode-btn + .pmode-btn { border-left: none; }
 .pmode-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 .m-balance { margin-left: auto; display: flex; align-items: center; border-left: 2px solid #222; padding: 0 1.75rem; gap: 0.75rem; }
 .m-balance-label { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .m-balance-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--lime); line-height: 1; transition: color 0.3s; }
 .m-balance-num.neg { color: var(--red); }
 
-/* ── HERO ── */
+/* ── HERO (from ledger 10) ── */
 .hero { background: var(--ink); display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; }
 .hero-col { padding: 1.4rem 1.75rem; border-right: 1px solid #1e1e1e; position: relative; overflow: hidden; }
 .hero-col:last-child { border-right: none; }
@@ -65,39 +66,68 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .h-sub { font-size: 0.62rem; font-weight: 500; color: #555; margin-top: 0.3rem; }
 .h-sub.over { color: var(--red); }
 .h-sub.under { color: var(--lime); }
-/* No colored bottom bars on hero cols */
 
-/* ── LAYOUT ── */
+/* ── LAYOUT (from ledger 10) ── */
 .layout { display: grid; grid-template-columns: 1fr 400px; }
 
 /* ── LEFT COL ── */
 .ledger-col { border-right: 2px solid var(--ink); }
 
-/* col-header: NOT sticky — user asked to remove sticky table header */
+/* ── COL HEADER (from ledger 9 — controls not cut off) ── */
 .col-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.85rem 2rem;
+  padding: 0.75rem 1.5rem;
   border-bottom: 2px solid var(--ink);
   background: var(--paper);
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
+  overflow: visible;
 }
-.col-hed { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.65rem; white-space: nowrap; }
+.col-hed { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.55rem; white-space: nowrap; }
 .count-pill { font-size: 0.62rem; font-weight: 700; background: var(--ink); color: var(--paper); padding: 0.2rem 0.6rem; border-radius: 2px; }
-.col-controls { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.ctrl-select { font-family: 'Manrope', sans-serif; font-size: 0.68rem; font-weight: 500; background: none; border: 1px solid var(--rule); color: var(--muted); padding: 0.3rem 0.6rem; cursor: pointer; outline: none; appearance: none; }
-.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 0.68rem; font-weight: 600; background: none; border: 1px solid var(--rule); color: var(--muted); padding: 0.3rem 0.6rem; cursor: pointer; transition: all 0.15s; }
+.col-controls { display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
+
+/* Controls from ledger 9 — fixed height, flex-centered, no cutoff */
+.ctrl-select,
+.ctrl-btn {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  padding: 0.38rem 0.6rem;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  border-radius: 0;
+  line-height: 1.4;
+  transition: all 0.15s;
+  vertical-align: middle;
+}
+.ctrl-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 1.6rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%237A7065'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 8px 5px;
+  background-color: var(--paper);
+}
 .ctrl-btn:hover { border-color: var(--ink); color: var(--ink); }
 
-/* ── TABLE: no sticky headers ── */
+/* ── TABLE (from ledger 10 styling, ledger 9 dimmed rows) ── */
 .tx-table { width: 100%; border-collapse: collapse; }
 .tx-table thead th {
   font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--muted); padding: 0.5rem 1rem; text-align: left;
   border-bottom: 1px solid var(--rule); background: var(--off);
-  /* NOT sticky - removed position:sticky */
 }
 .tx-table thead th:last-child { text-align: right; padding-right: 2rem; }
 .tx-table thead th:first-child { padding-left: 2rem; }
@@ -105,7 +135,8 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .tx-row { border-bottom: 1px solid var(--rule); cursor: pointer; transition: background 0.12s; animation: rowIn 0.3s ease both; }
 .tx-row:hover { background: var(--mid); }
 .tx-row.selected { background: var(--ink); color: var(--paper); }
-/* No bottom border on rows after index 10 — clean list */
+.tx-row.dimmed { opacity: 0.42; }
+.tx-row.dimmed:hover { opacity: 0.75; }
 .tx-row td { padding: 0.75rem 1rem; vertical-align: middle; }
 .tx-row td:first-child { padding-left: 2rem; }
 .tx-row td:last-child { padding-right: 2rem; text-align: right; }
@@ -113,13 +144,15 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .tx-date { font-size: 0.7rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
 .tx-row.selected .tx-date { color: #888; }
 
-/* ── CATEGORY TAGS: gold star, no circle ── */
+.tx-divider td { padding: 0.3rem 2rem; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--off); border-bottom: 1px solid var(--rule); }
+
+/* ── CATEGORY TAGS (from ledger 10) ── */
 .tx-cat {
-  display: inline-flex; align-items: center; gap: 0.3rem;
+  display: inline-flex; align-items: center; gap: 0.35rem;
   font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 0.16rem 0.5rem; border: 1px solid currentColor;
 }
-.tx-cat::before { content: '★'; font-size: 0.6rem; color: var(--gold); }
+.tx-cat-icon { font-size: 0.85rem; line-height: 1; }
 
 .tx-desc { font-size: 0.88rem; font-weight: 600; line-height: 1.2; font-family: 'Manrope', sans-serif; }
 .tx-note { font-size: 0.7rem; font-weight: 400; color: var(--muted); font-style: italic; margin-top: 2px; }
@@ -143,16 +176,13 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .cat-other     { color: var(--muted); border-color: var(--muted); background: rgba(122,112,101,0.1); }
 
 .tx-row.selected .tx-cat { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.35) !important; color: rgba(255,255,255,0.85) !important; }
-.tx-row.selected .tx-cat::before { color: var(--gold); }
-
-/* All rows equal opacity */
 
 .empty-state { padding: 4rem 2rem; text-align: center; display: none; }
 .empty-state.show { display: block; }
 .empty-hed { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
 .empty-sub { font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
-/* ── RIGHT PANEL ── */
+/* ── RIGHT PANEL (from ledger 10) ── */
 .right-col {
   background: var(--off);
   display: flex;
@@ -164,7 +194,6 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
   align-self: start;
 }
 
-/* TABS — sticky at top of right panel */
 .right-tabs {
   display: flex;
   background: var(--ink);
@@ -175,7 +204,7 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
   flex: 1; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 0.7rem 0.5rem; text-align: center; cursor: pointer; color: #555;
   border: none; background: none; transition: all 0.15s; border-bottom: 3px solid transparent;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif; touch-action: manipulation;
 }
 .rtab.active { color: var(--gold); border-bottom-color: var(--gold); }
 .rtab:hover:not(.active) { color: #888; }
@@ -183,15 +212,13 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .tab-panel { display: none; flex-direction: column; flex: 1; overflow: hidden; }
 .tab-panel.active { display: flex; }
 
-/* Scrollable content inside each tab */
-.tab-scroll { flex: 1; overflow-y: auto; }
+.tab-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; }
 .tab-scroll::-webkit-scrollbar { width: 3px; }
 .tab-scroll::-webkit-scrollbar-thumb { background: var(--rule); }
 
-/* Save button pinned at bottom of budget tab */
 .budget-save-bar {
   flex-shrink: 0;
-  padding: 0.85rem 1.5rem;
+  padding: 0.85rem 1rem;
   border-top: 2px solid var(--rule);
   background: var(--off);
 }
@@ -202,12 +229,12 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 }
 .budget-save-btn:hover { background: var(--ink); }
 
-/* ADD FORM */
+/* ── ADD FORM (from ledger 10) ── */
 .add-form { padding: 1.1rem 1.5rem 1rem; }
 .form-hed { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--ink); letter-spacing: 0.08em; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
 .form-hed .gold { color: var(--gold); }
 .type-toggle { display: flex; margin-bottom: 0.8rem; border: 1px solid var(--rule); }
-.type-btn { flex: 1; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem; background: none; border: none; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: 'Manrope', sans-serif; }
+.type-btn { flex: 1; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem; background: none; border: none; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: 'Manrope', sans-serif; touch-action: manipulation; }
 .type-btn.active.exp { background: var(--red); color: white; }
 .type-btn.active.inc { background: var(--lime); color: var(--ink); }
 .form-row { margin-bottom: 0.55rem; }
@@ -215,12 +242,23 @@ body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(
 .form-input, .form-select {
   width: 100%; background: white; border: 1.5px solid var(--rule); color: var(--ink);
   font-family: 'Manrope', sans-serif; font-size: 0.84rem; font-weight: 500;
-  padding: 0.55rem 0.8rem; outline: none; transition: border-color 0.15s; appearance: none;
+  outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; border-radius: 0;
+  box-sizing: border-box;
+}
+.form-input {
+  height: 42px;
+  padding: 0 0.8rem;
+  line-height: 42px;
+}
+.form-select {
+  padding: 0.7rem 2rem 0.7rem 0.8rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%237A7065'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 9px;
+  background-color: white;
 }
 .form-input:focus, .form-select:focus { border-color: var(--ink); }
 .form-input::placeholder { color: #bbb; }
 .form-select option { background: white; color: var(--ink); }
-
 input[type="date"] { color-scheme: light; }
 input[type="date"]::-webkit-calendar-picker-indicator {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230D0D0D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
@@ -228,32 +266,55 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer; opacity: 0.5; width: 20px; height: 20px;
 }
 
+/* ── CUSTOM DROPDOWN ── */
+.custom-select-wrap { position: relative; width: 100%; }
+.custom-select-trigger {
+  width: 100%; height: 42px; background: white; border: 1.5px solid var(--rule);
+  color: var(--ink); font-family: 'Manrope', sans-serif; font-size: 0.84rem; font-weight: 500;
+  padding: 0 2rem 0 0.8rem; display: flex; align-items: center; cursor: pointer;
+  user-select: none; transition: border-color 0.15s; box-sizing: border-box;
+  white-space: nowrap; overflow: hidden;
+}
+.custom-select-trigger.open { border-color: var(--ink); }
+.custom-select-trigger.placeholder { color: #bbb; }
+.custom-select-arrow {
+  position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+  pointer-events: none; width: 9px; height: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%237A7065'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-size: contain;
+}
+.custom-select-opts {
+  display: none; position: absolute; bottom: calc(100% + 2px); left: 0; right: 0;
+  background: white; border: 1.5px solid var(--ink); z-index: 999;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+}
+.custom-select-opts.open { display: block; }
+.custom-select-opt {
+  padding: 0.35rem 0.8rem; font-family: 'Manrope', sans-serif; font-size: 0.75rem;
+  font-weight: 500; cursor: pointer; color: var(--ink); transition: background 0.1s;
+}
+.custom-select-opt:hover { background: var(--mid); }
+.custom-select-opt.selected { background: var(--ink); color: var(--paper); }
 .amount-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
 .form-submit { width: 100%; margin-top: 0.6rem; background: var(--ink); border: none; color: var(--paper); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; padding: 0.65rem; cursor: pointer; transition: all 0.15s; }
 .form-submit:hover { background: var(--gold); color: var(--ink); }
 
-/* BUDGET PANEL */
-.budget-panel { padding: 1rem 1.5rem 0; }
+/* ── BUDGET PANEL (from ledger 10) ── */
+.budget-panel { padding: 1rem 1rem 0; overflow: visible; }
 .budget-intro { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--rule); }
 .budget-intro em { font-style: italic; }
 
 .budget-row { padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
 .budget-row-top { display: flex; align-items: center; gap: 0.5rem; }
-
-/* gold star instead of dot */
-.budget-cat { display: flex; align-items: center; gap: 0.35rem; width: 82px; flex-shrink: 0; }
-.budget-cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-/*.budget-cat-star { font-size: 0.75rem; color: var(--gold); flex-shrink: 0; line-height: 1; }*/
-.budget-cat-name { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); }
-
+.budget-cat { display: flex; align-items: center; gap: 0.35rem; width: 110px; flex-shrink: 0; min-width: 0; }
+.budget-cat-star { font-size: 1rem; flex-shrink: 0; line-height: 1; }
+.budget-cat-name { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); white-space: nowrap; overflow: visible; }
 .budget-input-wrap { flex: 1; position: relative; min-width: 0; }
 .budget-input-wrap span { position: absolute; left: 0.55rem; top: 50%; transform: translateY(-50%); font-size: 0.78rem; font-weight: 600; color: var(--muted); pointer-events: none; }
-.budget-input { width: 100%; background: white; border: 1.5px solid var(--rule); color: var(--ink); font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.04em; padding: 0.35rem 0.5rem 0.35rem 1.3rem; outline: none; transition: border-color 0.15s; }
+.budget-input { width: 100%; background: white; border: 1.5px solid var(--rule); color: var(--ink); font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.04em; padding: 0.35rem 0.5rem 0.35rem 1.3rem; outline: none; transition: border-color 0.15s; border-radius: 0; }
 .budget-input:focus { border-color: var(--ink); }
-
-/* Status: compact, no overflow */
-.budget-status { width: 60px; text-align: right; flex-shrink: 0; }
-.budget-status-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.02em; display: block; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.budget-status { width: 70px; text-align: right; flex-shrink: 0; }
+.budget-status-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.02em; display: block; line-height: 1.1; white-space: nowrap; }
 .budget-status-num.over  { color: var(--red); }
 .budget-status-num.under { color: var(--green); }
 .budget-status-num.none  { color: var(--muted); }
@@ -261,16 +322,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .budget-status-label.over  { color: var(--red); }
 .budget-status-label.under { color: var(--green); }
 .budget-status-label.none  { color: var(--muted); }
-
-/* Bar: full width under the row, no indent offset that caused overflow */
 .budget-bar-wrap { margin-top: 0.4rem; }
 .budget-track { height: 4px; background: var(--rule); width: 100%; }
 .budget-fill { height: 100%; width: 0%; transition: width 0.7s cubic-bezier(0.16,1,0.3,1); max-width: 100%; }
 .budget-bar-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 0.56rem; font-weight: 600; color: var(--muted); }
-/* Truncate long meta text */
-.budget-bar-meta span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 48%; }
+.budget-bar-meta span { white-space: nowrap; }
 
-/* CHARTS */
+/* ── CHARTS (from ledger 10 layout, ledger 9 trend chart) ── */
 .charts-area { padding: 1.1rem 1.5rem; }
 .chart-block { margin-bottom: 1.5rem; }
 .chart-hed { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 0.45rem; margin-bottom: 0.9rem; display: flex; align-items: center; justify-content: space-between; }
@@ -279,7 +337,51 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .cat-bar-track { flex: 1; height: 9px; background: var(--rule); }
 .cat-bar-fill { height: 100%; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
 .cat-bar-right { font-size: 0.58rem; font-weight: 600; color: var(--muted); width: 68px; text-align: right; flex-shrink: 0; line-height: 1.4; }
-.sparkline-wrap { height: 90px; background: var(--mid); overflow: hidden; }
+
+/* ── TREND CHART (from ledger 9) ── */
+.trend-chart {
+  background: var(--mid);
+  border: 1px solid var(--rule);
+  padding: 0.9rem 0.85rem 0.7rem;
+}
+.trend-bars-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 88px;
+  margin-bottom: 0;
+}
+.trend-month {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.trend-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+  justify-content: center;
+  height: 72px;
+}
+.trend-bar {
+  flex: 1;
+  max-width: 14px;
+  border-radius: 2px 2px 0 0;
+  min-height: 0;
+  transition: height 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.trend-bar.inc { background: var(--lime); opacity: 0.85; }
+.trend-bar.exp { background: var(--red); opacity: 0.72; }
+.trend-rule { height: 1px; background: var(--rule); margin: 4px 0; width: 100%; }
+.trend-lbl { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.trend-legend { display: flex; gap: 1rem; margin-top: 0.55rem; }
+.trend-legend-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.55rem; font-weight: 700; color: var(--muted); }
+.trend-legend-dot { width: 8px; height: 8px; border-radius: 1px; flex-shrink: 0; }
+.trend-empty { font-size: 0.78rem; color: var(--muted); font-style: italic; text-align: center; padding: 1.2rem 0; }
+
+/* ── HEALTH METER ── */
 .health-meter { background: var(--mid); border: 2px solid var(--ink); padding: 0.9rem; }
 .health-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.65rem; }
 .health-score { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--green); line-height: 1; transition: color 0.4s; }
@@ -291,12 +393,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .health-fill.warn { background: linear-gradient(90deg, var(--gold), #f0c040); }
 .health-fill.danger { background: linear-gradient(90deg, var(--red), #e05040); }
 .health-tips { font-size: 0.73rem; color: var(--muted); font-style: italic; line-height: 1.5; }
+
+/* ── QUICK STATS ── */
 .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
 .q-stat { background: var(--mid); padding: 0.8rem; border: 1px solid var(--rule); }
 .q-stat-label { font-size: 0.54rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
 .q-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; }
 
-/* ── DRAWER ── */
+/* ── DRAWER (from ledger 10) ── */
 .drawer-overlay { position: fixed; inset: 0; z-index: 300; pointer-events: none; }
 .drawer-overlay.open { pointer-events: all; }
 .drawer-scrim { position: absolute; inset: 0; background: rgba(13,13,13,0.4); opacity: 0; transition: opacity 0.3s; }
@@ -311,8 +415,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .d-desc { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; }
 .d-date { font-size: 0.68rem; font-weight: 500; color: var(--muted); }
 .d-body { padding: 1.35rem 1.75rem; flex: 1; }
-.d-field { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--rule); }
-.d-field:last-child { border-bottom: none; }
+.d-field { margin-bottom: 0; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.d-field:first-child { padding-top: 0; }
+.d-field:last-of-type { border-bottom: none; }
 .d-field-label { font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
 .d-field-val { font-size: 0.88rem; font-weight: 500; line-height: 1.6; }
 .d-delete { display: block; width: 100%; margin-top: 1rem; background: none; border: 2px solid var(--red); color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; padding: 0.6rem; cursor: pointer; transition: all 0.15s; }
@@ -322,6 +427,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: var(--paper); font-size: 0.76rem; font-weight: 600; padding: 0.7rem 1.4rem; border-left: 4px solid var(--gold); z-index: 999; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); white-space: nowrap; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { border-left-color: var(--lime); }
+.toast.expense { border-left-color: var(--red); }
 .toast.error { border-left-color: var(--red); }
 
 @keyframes rowIn { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
@@ -357,22 +463,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 </header>
 
 <section class="hero">
-  <div class="hero-col income">
+  <div class="hero-col">
     <div class="h-label">Income</div>
     <div class="h-num income" id="heroIncome">$0</div>
     <div class="h-sub" id="incomeCount">0 entries</div>
   </div>
-  <div class="hero-col expense">
+  <div class="hero-col">
     <div class="h-label">Expenses</div>
     <div class="h-num expense" id="heroExpense">$0</div>
     <div class="h-sub" id="expenseCount">0 entries</div>
   </div>
-  <div class="hero-col net">
+  <div class="hero-col">
     <div class="h-label">Net Balance</div>
     <div class="h-num net pos" id="heroNet">$0</div>
     <div class="h-sub" id="netSub">—</div>
   </div>
-  <div class="hero-col budget-col">
+  <div class="hero-col">
     <div class="h-label">Budget Used</div>
     <div class="h-num budget-stat" id="heroBudget">—</div>
     <div class="h-sub" id="budgetSub">Set budgets →</div>
@@ -396,7 +502,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
           <option value="shopping">Shopping</option>
           <option value="savings">Savings</option>
           <option value="other">Other</option>
-          
         </select>
         <select class="ctrl-select" id="sortTx" onchange="renderTable()">
           <option value="date-desc">Newest</option>
@@ -441,12 +546,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
           </div>
           <div class="form-row">
             <label class="form-label">Description</label>
-            <input type="text" class="form-input" id="fDesc" placeholder="e.g. Grocery run, Salary…">
+            <input type="text" class="form-input" id="fDesc" placeholder="e.g. Grocery run, Salary…" autocomplete="off">
           </div>
           <div class="amount-row">
             <div class="form-row">
               <label class="form-label">Amount ($)</label>
-              <input type="number" class="form-input" id="fAmount" placeholder="0.00" min="0" step="0.01">
+              <input type="number" class="form-input" id="fAmount" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
             </div>
             <div class="form-row">
               <label class="form-label">Date</label>
@@ -455,20 +560,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
           </div>
           <div class="form-row">
             <label class="form-label">Category</label>
-            <select class="form-select" id="fCat">
-              <option value="food">🍽️ Food & Drink</option>
-              <option value="transport">🚌 Transport</option>
-              <option value="home">🏠 Home & Bills</option>
-              <option value="health">💊 Health</option>
-              <option value="leisure">🎭 Leisure</option>
-              <option value="shopping">🛍 Shopping</option>
-              <option value="savings">💰 Savings</option>
-              <option value="other">📁 Other</option>
-            </select>
+            <div class="custom-select-wrap" id="catDropWrap">
+              <div class="custom-select-trigger placeholder" id="catTrigger" onclick="toggleCatDrop()">
+                <span id="catTriggerText"></span>
+              </div>
+              <div class="custom-select-arrow"></div>
+              <div class="custom-select-opts" id="catOpts">
+                <div class="custom-select-opt" data-value="food"     onclick="selectCat(this)">🍽️ Food &amp; Drink</div>
+                <div class="custom-select-opt" data-value="transport" onclick="selectCat(this)">🚌 Transport</div>
+                <div class="custom-select-opt" data-value="home"     onclick="selectCat(this)">🏠 Home &amp; Bills</div>
+                <div class="custom-select-opt" data-value="health"   onclick="selectCat(this)">💊 Health</div>
+                <div class="custom-select-opt" data-value="leisure"  onclick="selectCat(this)">🎭 Leisure</div>
+                <div class="custom-select-opt" data-value="shopping" onclick="selectCat(this)">🛍️ Shopping</div>
+                <div class="custom-select-opt" data-value="savings"  onclick="selectCat(this)">💰 Savings</div>
+                <div class="custom-select-opt" data-value="other"    onclick="selectCat(this)">📁 Other</div>
+              </div>
+            </div>
+            <input type="hidden" id="fCat" value="">
           </div>
           <div class="form-row">
             <label class="form-label">Note (optional)</label>
-            <input type="text" class="form-input" id="fNote" placeholder="Any extra detail…">
+            <input type="text" class="form-input" id="fNote" placeholder="Any extra detail…" autocomplete="off">
           </div>
           <button class="form-submit" onclick="addTransaction()">RECORD ENTRY →</button>
         </div>
@@ -510,11 +622,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
             <div id="catBars"><div style="font-size:0.8rem;color:var(--muted);font-style:italic">No expense data this period.</div></div>
           </div>
           <div class="chart-block">
-            <div class="chart-hed">Income vs Expenses — 6mo Trend</div>
-            <div class="sparkline-wrap"><canvas id="trendCanvas"></canvas></div>
-            <div style="display:flex;gap:1.25rem;margin-top:0.5rem">
-              <span style="font-size:0.6rem;font-weight:700;color:var(--lime)">■ Income</span>
-              <span style="font-size:0.6rem;font-weight:700;color:var(--red)">■ Expenses</span>
+            <div class="chart-hed">Income vs Expenses — 6 Months</div>
+            <div class="trend-chart">
+              <div class="trend-bars-row" id="trendBars">
+                <div class="trend-empty">No data yet</div>
+              </div>
+              <div class="trend-rule"></div>
+              <div class="trend-legend">
+                <div class="trend-legend-item"><div class="trend-legend-dot" style="background:var(--lime)"></div>Income</div>
+                <div class="trend-legend-item"><div class="trend-legend-dot" style="background:var(--red)"></div>Expenses</div>
+              </div>
             </div>
           </div>
           <div class="chart-block">
@@ -554,7 +671,10 @@ const CAT_COLORS = {
   health:'#3DA882', income:'#4CAF50', leisure:'#A86FD4',
   shopping:'#C8321A', savings:'#3A8FBF', other:'#7A7065'
 };
-const CAT_ICONS  = { food:'🍽️', transport:'🚌', home:'🏠', health:'💊', income:'💵', leisure:'🎭', shopping:'🛍', savings:'💰', other:'·' };
+const CAT_ICONS = {
+  food:'🍽️', transport:'🚌', home:'🏠', health:'💊',
+  income:'💵', leisure:'🎭', shopping:'🛍️', savings:'💰', other:'📁'
+};
 const EXPENSE_CATS = ['food','transport','home','health','leisure','shopping','savings','other'];
 
 function save() {
@@ -601,7 +721,6 @@ function getPeriodTxs() { return transactions.filter(inPeriod); }
 function setPeriodMode(mode) {
   periodMode=mode; periodOffset=0;
   document.querySelectorAll('.pmode-btn').forEach(b=>b.classList.remove('active'));
-  ({month:'btnMonth',year:'btnYear',all:'btnAll'})[mode];
   document.getElementById({month:'btnMonth',year:'btnYear',all:'btnAll'}[mode]).classList.add('active');
   renderAll();
 }
@@ -622,13 +741,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ['fDesc','fAmount','fNote'].forEach(id =>
     document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') addTransaction(); })
   );
-  window.addEventListener('resize', renderTrend);
 });
 
 // ═══════════════════════════════════════════
-// SEED DATA — force reseed if version mismatch
+// SEED DATA
 // ═══════════════════════════════════════════
-const SEED_VERSION = 'v4';
+const SEED_VERSION = 'v10m';
 function checkAndSeed() {
   if (localStorage.getItem('ledger_seed_ver') !== SEED_VERSION || !transactions.length) {
     seedSampleData();
@@ -637,17 +755,16 @@ function checkAndSeed() {
 }
 
 function seedSampleData() {
-  // date string for day D in month offset M from today (1 = this month, 0 = last month, -1 = 2 months ago)
   const dt = (monthOff, day) => {
     const d = new Date();
-    d.setDate(1); // avoid day overflow
+    d.setDate(1);
     d.setMonth(d.getMonth() + monthOff);
     d.setDate(Math.min(day, new Date(d.getFullYear(), d.getMonth()+1, 0).getDate()));
     return d.toISOString().split('T')[0];
   };
 
   transactions = [
-    // ── THIS MONTH ──
+    // THIS MONTH
     { id:101, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4800,   date:dt(0,1),  note:'Direct deposit' },
     { id:102, type:'income',  desc:'Freelance — UI Design', cat:'income',    amount:950,    date:dt(0,5),  note:'Retainer' },
     { id:103, type:'expense', desc:'Rent',                  cat:'home',      amount:1400,   date:dt(0,2),  note:'' },
@@ -668,7 +785,7 @@ function seedSampleData() {
     { id:118, type:'expense', desc:'Rooftop Bar Night',     cat:'leisure',   amount:90,     date:dt(0,18), note:"Friend's birthday" },
     { id:119, type:'expense', desc:'Vitamins & Supplements',cat:'health',    amount:38,     date:dt(0,19), note:'' },
     { id:120, type:'expense', desc:'Thai Takeout',          cat:'food',      amount:38,     date:dt(0,20), note:'Golden Tiger' },
-    // ── LAST MONTH ──
+    // 1 MONTH AGO
     { id:201, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4800,   date:dt(-1,1),  note:'Direct deposit' },
     { id:202, type:'income',  desc:'Stock Dividend',        cat:'income',    amount:220,    date:dt(-1,15), note:'AAPL dividend' },
     { id:203, type:'expense', desc:'Rent',                  cat:'home',      amount:1400,   date:dt(-1,2),  note:'' },
@@ -683,7 +800,7 @@ function seedSampleData() {
     { id:212, type:'expense', desc:'Planet Fitness',        cat:'health',    amount:24.99,  date:dt(-1,22), note:'' },
     { id:213, type:'expense', desc:'Internet Bill',         cat:'home',      amount:65,     date:dt(-1,24), note:'Fiber 1Gbps' },
     { id:214, type:'expense', desc:'Dinner Party Host',     cat:'food',      amount:74,     date:dt(-1,26), note:'Wine & cheese' },
-    // ── 2 MONTHS AGO ──
+    // 2 MONTHS AGO
     { id:301, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4800,   date:dt(-2,1),  note:'' },
     { id:302, type:'income',  desc:'Freelance — Logo',      cat:'income',    amount:600,    date:dt(-2,10), note:'Brand project' },
     { id:303, type:'income',  desc:'Tax Refund',            cat:'income',    amount:840,    date:dt(-2,18), note:'Federal return' },
@@ -698,20 +815,95 @@ function seedSampleData() {
     { id:312, type:'expense', desc:'Concert Tickets × 2',   cat:'leisure',   amount:160,    date:dt(-2,22), note:'Floor seats' },
     { id:313, type:'expense', desc:'Coffee',                cat:'food',      amount:44,     date:dt(-2,25), note:'' },
     { id:314, type:'expense', desc:'Planet Fitness',        cat:'health',    amount:24.99,  date:dt(-2,28), note:'' },
+    // 3 MONTHS AGO
+    { id:401, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4800,   date:dt(-3,1),  note:'' },
+    { id:402, type:'income',  desc:'Consulting Fee',        cat:'income',    amount:1200,   date:dt(-3,12), note:'Q4 strategy' },
+    { id:403, type:'expense', desc:'Rent',                  cat:'home',      amount:1400,   date:dt(-3,2),  note:'' },
+    { id:404, type:'expense', desc:'Grocery',               cat:'food',      amount:109,    date:dt(-3,5),  note:'' },
+    { id:405, type:'expense', desc:'Heating Bill',          cat:'home',      amount:88,     date:dt(-3,8),  note:'Cold month' },
+    { id:406, type:'expense', desc:'Annual Checkup',        cat:'health',    amount:60,     date:dt(-3,10), note:'' },
+    { id:407, type:'expense', desc:'Holiday Dinner Out',    cat:'leisure',   amount:145,    date:dt(-3,14), note:'Family restaurant' },
+    { id:408, type:'expense', desc:'Train Tickets',         cat:'transport', amount:78,     date:dt(-3,16), note:'Amtrak' },
+    { id:409, type:'expense', desc:'Gift Shopping',         cat:'shopping',  amount:320,    date:dt(-3,18), note:'Christmas gifts' },
+    { id:410, type:'expense', desc:'Emergency Savings',     cat:'savings',   amount:450,    date:dt(-3,20), note:'' },
+    { id:411, type:'expense', desc:'Coffee & Bakeries',     cat:'food',      amount:55,     date:dt(-3,22), note:'' },
+    { id:412, type:'expense', desc:'Planet Fitness',        cat:'health',    amount:24.99,  date:dt(-3,25), note:'' },
+    // 4 MONTHS AGO
+    { id:501, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4800,   date:dt(-4,1),  note:'' },
+    { id:502, type:'income',  desc:'Side Project',          cat:'income',    amount:450,    date:dt(-4,8),  note:'App dev' },
+    { id:503, type:'expense', desc:'Rent',                  cat:'home',      amount:1400,   date:dt(-4,2),  note:'' },
+    { id:504, type:'expense', desc:"Trader Joe's",          cat:'food',      amount:96,     date:dt(-4,6),  note:'' },
+    { id:505, type:'expense', desc:'Internet & Phone',      cat:'home',      amount:120,    date:dt(-4,8),  note:'Bundle plan' },
+    { id:506, type:'expense', desc:'Eye Exam',              cat:'health',    amount:40,     date:dt(-4,10), note:'' },
+    { id:507, type:'expense', desc:'Weekend Getaway',       cat:'leisure',   amount:390,    date:dt(-4,13), note:'Catskills Airbnb' },
+    { id:508, type:'expense', desc:'Car Rental',            cat:'transport', amount:95,     date:dt(-4,14), note:'Weekend trip' },
+    { id:509, type:'expense', desc:'New Work Shoes',        cat:'shopping',  amount:175,    date:dt(-4,16), note:'Oxford brogues' },
+    { id:510, type:'expense', desc:'Emergency Savings',     cat:'savings',   amount:400,    date:dt(-4,18), note:'' },
+    { id:511, type:'expense', desc:'Restaurants',           cat:'food',      amount:128,    date:dt(-4,22), note:'' },
+    { id:512, type:'expense', desc:'Planet Fitness',        cat:'health',    amount:24.99,  date:dt(-4,25), note:'' },
+    // 5 MONTHS AGO
+    { id:601, type:'income',  desc:'Monthly Salary',        cat:'income',    amount:4600,   date:dt(-5,1),  note:'Pre-raise' },
+    { id:602, type:'income',  desc:'Referral Bonus',        cat:'income',    amount:300,    date:dt(-5,20), note:'' },
+    { id:603, type:'expense', desc:'Rent',                  cat:'home',      amount:1400,   date:dt(-5,2),  note:'' },
+    { id:604, type:'expense', desc:'Grocery',               cat:'food',      amount:112,    date:dt(-5,5),  note:'' },
+    { id:605, type:'expense', desc:'Electric Bill',         cat:'home',      amount:58,     date:dt(-5,8),  note:'' },
+    { id:606, type:'expense', desc:'Gym Membership',        cat:'health',    amount:24.99,  date:dt(-5,10), note:'' },
+    { id:607, type:'expense', desc:'Spotify',               cat:'leisure',   amount:9.99,   date:dt(-5,12), note:'' },
+    { id:608, type:'expense', desc:'Metro Monthly',         cat:'transport', amount:127,    date:dt(-5,14), note:'' },
+    { id:609, type:'expense', desc:'Amazon Misc',           cat:'shopping',  amount:68,     date:dt(-5,16), note:'' },
+    { id:610, type:'expense', desc:'Emergency Savings',     cat:'savings',   amount:350,    date:dt(-5,18), note:'' },
+    { id:611, type:'expense', desc:'Coffee',                cat:'food',      amount:40,     date:dt(-5,22), note:'' },
+    { id:612, type:'expense', desc:'Pharmacy',              cat:'health',    amount:18,     date:dt(-5,25), note:'' },
   ];
   budgets = { food:320, transport:200, home:1600, health:130, leisure:250, shopping:200, savings:450, other:80 };
   save();
 }
 
 // ═══════════════════════════════════════════
-// ADD TRANSACTION
+// CUSTOM CATEGORY DROPDOWN
 // ═══════════════════════════════════════════
+let selectedCatValue = '';
+
+function toggleCatDrop() {
+  const opts = document.getElementById('catOpts');
+  const trigger = document.getElementById('catTrigger');
+  const isOpen = opts.classList.contains('open');
+  opts.classList.toggle('open', !isOpen);
+  trigger.classList.toggle('open', !isOpen);
+}
+
+function selectCat(el) {
+  selectedCatValue = el.dataset.value;
+  document.getElementById('fCat').value = selectedCatValue;
+  document.getElementById('catTriggerText').textContent = el.textContent;
+  document.getElementById('catTrigger').classList.remove('placeholder', 'open');
+  document.getElementById('catOpts').classList.remove('open');
+  document.querySelectorAll('.custom-select-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function resetCatDrop() {
+  selectedCatValue = '';
+  document.getElementById('fCat').value = '';
+  document.getElementById('catTriggerText').textContent = '';
+  document.getElementById('catTrigger').classList.add('placeholder');
+  document.getElementById('catTrigger').classList.remove('open');
+  document.getElementById('catOpts').classList.remove('open');
+  document.querySelectorAll('.custom-select-opt').forEach(o => o.classList.remove('selected'));
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('catDropWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('catOpts').classList.remove('open');
+    document.getElementById('catTrigger').classList.remove('open');
+  }
+});
 function setType(t) {
   currentType = t;
   document.getElementById('btnExp').classList.toggle('active', t==='expense');
   document.getElementById('btnInc').classList.toggle('active', t==='income');
-  if (t==='income') document.getElementById('fCat').value='income';
-  else if (document.getElementById('fCat').value==='income') document.getElementById('fCat').value='food';
 }
 
 function addTransaction() {
@@ -720,16 +912,18 @@ function addTransaction() {
   const date   = document.getElementById('fDate').value;
   const cat    = document.getElementById('fCat').value;
   const note   = document.getElementById('fNote').value.trim();
-  if (!desc)          { showToast('Enter a description','error'); return; }
-  if (!amount||amount<=0) { showToast('Enter a valid amount','error'); return; }
-  if (!date)          { showToast('Select a date','error'); return; }
+  if (!desc)           { showToast('Enter a description','error'); return; }
+  if (!amount||amount<=0){ showToast('Enter a Valid Amount','error'); return; }
+  if (!date)           { showToast('Select a Date','error'); return; }
+  if (!cat)            { showToast('Select a Category','error'); return; }
   transactions.unshift({ id:Date.now(), type:currentType, desc, amount, date, cat, note });
   save();
   document.getElementById('fDesc').value='';
   document.getElementById('fAmount').value='';
   document.getElementById('fNote').value='';
+  resetCatDrop();
   renderAll();
-  showToast(`${currentType==='income'?'+ Income':'− Expense'} recorded`,'success');
+  showToast(currentType==='income'?'+ Income Recorded':'− Expense Recorded', currentType==='income'?'success':'expense');
 }
 
 // ═══════════════════════════════════════════
@@ -752,8 +946,8 @@ function getFiltered() {
   let list = getPeriodTxs();
   if (catF!=='all') list = list.filter(t=>t.cat===catF||(catF==='income'&&t.type==='income'));
   list.sort((a,b)=>{
-    if (sort==='date-desc')   return new Date(b.date)-new Date(a.date);
-    if (sort==='date-asc')    return new Date(a.date)-new Date(b.date);
+    if (sort==='date-desc')   return b.date.localeCompare(a.date);
+    if (sort==='date-asc')    return a.date.localeCompare(b.date);
     if (sort==='amount-desc') return b.amount-a.amount;
     if (sort==='amount-asc')  return a.amount-b.amount;
     return 0;
@@ -782,9 +976,11 @@ function renderTable() {
     tr.className = 'tx-row' + (tx.id===selectedId?' selected':'');
     tr.style.animationDelay = `${Math.min(i*0.02,0.4)}s`;
     tr.onclick = () => openDrawer(tx);
+    const emoji = CAT_ICONS[tx.cat] || '★';
+    const catLabel = tx.cat || '';
     tr.innerHTML = `
       <td><span class="tx-date">${dateStr}</span></td>
-      <td><span class="tx-cat cat-${tx.cat}">${CAT_ICONS[tx.cat]||'·'} ${tx.cat}</span></td>
+      <td><span class="tx-cat cat-${tx.cat||'other'}"><span class="tx-cat-icon">${emoji}</span>${catLabel}</span></td>
       <td>
         <div class="tx-desc">${tx.desc}</div>
         ${tx.note?`<div class="tx-note">${tx.note}</div>`:''}
@@ -803,7 +999,6 @@ function renderStats() {
   const income  = period.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
   const expense = period.filter(t=>t.type!=='income').reduce((s,t)=>s+t.amount,0);
   const net = income-expense;
-  const max = Math.max(income,expense,1);
   const scale = periodMode==='year'?12:1;
   const totalBudget = EXPENSE_CATS.reduce((s,c)=>s+(parseFloat(budgets[c])||0)*scale,0);
   const usedPct = totalBudget>0 ? Math.min(expense/totalBudget*100,150):0;
@@ -854,7 +1049,7 @@ function renderBudgetRows() {
     const pb=mb*scale;
     const actual=actuals[cat]||0;
     const diff=actual-pb;
-    const pct=pb>0?Math.min(actual/pb*100,150):0;
+    const pct=pb>0?Math.min(actual/pb*100,100):0;
     const isOver=pb>0&&actual>pb;
     const noBudget=pb<=0;
     const fillColor=noBudget?(CAT_COLORS[cat]||'#888'):isOver?'var(--red)':'var(--green)';
@@ -875,12 +1070,12 @@ function renderBudgetRows() {
     return `<div class="budget-row">
       <div class="budget-row-top">
         <div class="budget-cat">
-          <div class="budget-cat-dot" style="background:${CAT_COLORS[cat]}"></div>
+          <span class="budget-cat-star">${CAT_ICONS[cat]||'★'}</span>
           <span class="budget-cat-name">${cat}</span>
         </div>
         <div class="budget-input-wrap">
           <span>$</span>
-          <input type="number" class="budget-input" data-cat="${cat}" value="${mb||''}" placeholder="—" min="0" step="1">
+          <input type="number" class="budget-input" data-cat="${cat}" value="${mb||''}" placeholder="—" min="0" step="1" inputmode="numeric">
         </div>
         <div class="budget-status">
           <span class="budget-status-num ${sCls}">${sNum}</span>
@@ -938,34 +1133,39 @@ function renderCatBars() {
 }
 
 // ═══════════════════════════════════════════
-// TREND CHART
+// TREND CHART (from ledger 9 — bar chart style)
 // ═══════════════════════════════════════════
 function renderTrend() {
-  const canvas=document.getElementById('trendCanvas');
-  if (!canvas) return;
-  const W=canvas.parentElement.offsetWidth||340, H=90;
-  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
-  const ctx=canvas.getContext('2d'); ctx.scale(devicePixelRatio,devicePixelRatio);
-  const months=[];
-  for(let i=5;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push({key:`${d.getFullYear()}-${p2(d.getMonth()+1)}`,label:d.toLocaleDateString('en-US',{month:'short'}),inc:0,exp:0}); }
-  transactions.forEach(t=>{ const mo=months.find(m=>m.key===t.date.substring(0,7)); if(!mo) return; if(t.type==='income') mo.inc+=t.amount; else mo.exp+=t.amount; });
-  const maxVal=Math.max(...months.map(m=>Math.max(m.inc,m.exp)),1);
-  const pad={top:8,bottom:22,left:8,right:8};
-  const cW=W-pad.left-pad.right, cH=H-pad.top-pad.bottom;
-  const step=cW/(months.length-1);
-  ctx.clearRect(0,0,W,H);
-  ctx.strokeStyle='rgba(212,201,188,0.5)'; ctx.lineWidth=1;
-  [0.25,0.5,0.75,1].forEach(p=>{ const y=pad.top+cH*(1-p); ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(W-pad.right,y); ctx.stroke(); });
-  const drawArea=(key,color,fill)=>{
-    const pts=months.map((m,i)=>({x:pad.left+i*step,y:pad.top+cH*(1-m[key]/maxVal)}));
-    ctx.beginPath(); ctx.moveTo(pts[0].x,H-pad.bottom); pts.forEach(p=>ctx.lineTo(p.x,p.y)); ctx.lineTo(pts[pts.length-1].x,H-pad.bottom); ctx.closePath(); ctx.fillStyle=fill; ctx.fill();
-    ctx.beginPath(); pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
-    pts.forEach(p=>{ ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.fillStyle=color; ctx.fill(); });
-  };
-  drawArea('exp','#C8321A','rgba(200,50,26,0.08)');
-  drawArea('inc','#A8C84A','rgba(168,200,74,0.12)');
-  ctx.font='600 10px Manrope,sans-serif'; ctx.fillStyle='#7A7065'; ctx.textAlign='center';
-  months.forEach((m,i)=>ctx.fillText(m.label.toUpperCase(),pad.left+i*step,H-5));
+  const months = [];
+  for (let i=5; i>=0; i--) {
+    const d = new Date(); d.setMonth(d.getMonth()-i);
+    months.push({
+      key: `${d.getFullYear()}-${p2(d.getMonth()+1)}`,
+      label: d.toLocaleDateString('en-US',{month:'short'}),
+      inc: 0, exp: 0
+    });
+  }
+  transactions.forEach(t=>{
+    const mo=months.find(m=>m.key===t.date.substring(0,7));
+    if (!mo) return;
+    if (t.type==='income') mo.inc+=t.amount; else mo.exp+=t.amount;
+  });
+  const maxVal = Math.max(...months.map(m=>Math.max(m.inc,m.exp)), 1);
+  const hasAny = months.some(m=>m.inc>0||m.exp>0);
+  const container = document.getElementById('trendBars');
+  if (!hasAny) { container.innerHTML='<div class="trend-empty">No data in last 6 months</div>'; return; }
+  const H = 72;
+  container.innerHTML = months.map(m=>{
+    const iH = m.inc>0 ? Math.max(Math.round(m.inc/maxVal*H), 3) : 0;
+    const eH = m.exp>0 ? Math.max(Math.round(m.exp/maxVal*H), 3) : 0;
+    return `<div class="trend-month">
+      <div class="trend-pair">
+        <div class="trend-bar inc" style="height:${iH}px" title="${m.label} Income: $${fmt(m.inc)}"></div>
+        <div class="trend-bar exp" style="height:${eH}px" title="${m.label} Expenses: $${fmt(m.exp)}"></div>
+      </div>
+      <div class="trend-lbl">${m.label}</div>
+    </div>`;
+  }).join('');
 }
 
 // ═══════════════════════════════════════════
@@ -1011,7 +1211,7 @@ function renderQuickStats() {
 }
 
 // ═══════════════════════════════════════════
-// DETAIL DRAWER
+// DETAIL DRAWER (from ledger 10)
 // ═══════════════════════════════════════════
 function openDrawer(tx) {
   selectedId=tx.id; renderTable();
@@ -1019,25 +1219,42 @@ function openDrawer(tx) {
   const d=new Date(tx.date+'T12:00:00');
   const dateStr=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const amtColor=isInc?'var(--lime)':'var(--red)';
+  const emoji=CAT_ICONS[tx.cat]||'★';
   const scale=periodMode==='year'?12:1;
   const catBudget=(parseFloat(budgets[tx.cat])||0)*scale;
   const catActual=getPeriodTxs().filter(t=>t.cat===tx.cat&&t.type!=='income').reduce((s,t)=>s+t.amount,0);
-  const budgetLine=catBudget>0&&!isInc?`<div class="d-field"><div class="d-field-label">${tx.cat} Budget</div><div class="d-field-val">$${fmt(catActual)} of $${fmt(catBudget)} — <span style="color:${catActual>catBudget?'var(--red)':'var(--green)'}">${catActual>catBudget?'$'+fmt(catActual-catBudget)+' OVER':'$'+fmt(catBudget-catActual)+' remaining'}</span></div></div>`:'';
+  const budgetLine=catBudget>0&&!isInc?`
+    <div class="d-field">
+      <div class="d-field-label">${tx.cat.charAt(0).toUpperCase()+tx.cat.slice(1)} Budget</div>
+      <div class="d-field-val">$${fmt(catActual)} of $${fmt(catBudget)} &mdash; <span style="color:${catActual>catBudget?'var(--red)':'var(--green)'}">${catActual>catBudget?'$'+fmt(catActual-catBudget)+' over budget':'$'+fmt(catBudget-catActual)+' remaining'}</span></div>
+    </div>`:'';
   document.getElementById('drawer').innerHTML=`
     <div class="d-top">
       <button class="d-close" onclick="closeDrawer()">✕</button>
-      <div class="d-type">${CAT_ICONS[tx.cat]||'·'} ${tx.cat.toUpperCase()} · ${tx.type.toUpperCase()}</div>
+      <div class="d-type">${emoji} ${tx.cat.toUpperCase()} · ${tx.type.toUpperCase()}</div>
       <div class="d-amount" style="color:${amtColor}">${isInc?'+':'−'}$${fmtFull(tx.amount)}</div>
       <div class="d-desc">${tx.desc}</div>
       <div class="d-date">${dateStr}</div>
     </div>
     <div class="d-body">
-      <div class="d-field"><div class="d-field-label">Type</div><div class="d-field-val">${isInc?'+ Income':'− Expense'}</div></div>
-      <div class="d-field"><div class="d-field-label">Category</div>
-      <div class="d-field-val"><span class="tx-cat cat-${tx.cat}">${CAT_ICONS[tx.cat]||'·'} ${tx.cat}</span></div>
-      ${tx.note?`<div class="d-field"><div class="d-field-label">Note</div><div class="d-field-val" style="font-style:italic;color:var(--muted)">${tx.note}</div></div>`:''}
+      <div class="d-field">
+        <div class="d-field-label">Type</div>
+        <div class="d-field-val">${isInc?'+ Income':'− Expense'}</div>
+      </div>
+      <div class="d-field">
+        <div class="d-field-label">Category</div>
+        <div class="d-field-val"><span class="tx-cat cat-${tx.cat}"><span class="tx-cat-icon">${emoji}</span>${tx.cat}</span></div>
+      </div>
+      ${tx.note?`
+      <div class="d-field">
+        <div class="d-field-label">Note</div>
+        <div class="d-field-val" style="font-style:italic;color:var(--muted)">${tx.note}</div>
+      </div>`:''}
       ${budgetLine}
-      <div class="d-field"><div class="d-field-label">% of Period ${isInc?'Income':'Expenses'}</div><div class="d-field-val">${getPct(tx)}%</div></div>
+      <div class="d-field">
+        <div class="d-field-label">% of Period ${isInc?'Income':'Expenses'}</div>
+        <div class="d-field-val">${getPct(tx)}%</div>
+      </div>
       <button class="d-delete" onclick="deleteTransaction(${tx.id})">✕ DELETE THIS ENTRY</button>
     </div>`;
   document.getElementById('drawerOverlay').classList.add('open');
@@ -1052,7 +1269,7 @@ function closeDrawer() {
 function deleteTransaction(id) {
   transactions=transactions.filter(t=>t.id!==id);
   save(); closeDrawer(); renderAll();
-  showToast('Entry deleted');
+  showToast('Entry Deleted');
 }
 
 function getPct(tx) {
@@ -1070,12 +1287,12 @@ function switchTab(tab) {
   document.querySelectorAll('.rtab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  if (tab==='charts') setTimeout(renderTrend,50);
+  if (tab==='charts') renderTrend();
   if (tab==='budget') renderBudgetRows();
 }
 
 // ═══════════════════════════════════════════
-// CLEAR — period-aware
+// CLEAR
 // ═══════════════════════════════════════════
 function clearPeriod() {
   const label = getPeriodLabel();
