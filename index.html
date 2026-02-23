@@ -912,7 +912,7 @@ function addTransaction() {
   const date   = document.getElementById('fDate').value;
   const cat    = document.getElementById('fCat').value;
   const note   = document.getElementById('fNote').value.trim();
-  if (!desc)           { showToast('Enter a description','error'); return; }
+  if (!desc)           { showToast('Enter a Description','error'); return; }
   if (!amount||amount<=0){ showToast('Enter a Valid Amount','error'); return; }
   if (!date)           { showToast('Select a Date','error'); return; }
   if (!cat)            { showToast('Select a Category','error'); return; }
