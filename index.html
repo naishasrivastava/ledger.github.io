@@ -455,15 +455,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   /* Masthead — compact */
   .masthead { height: var(--masthead-h); }
-  .m-logo { font-size: 1.5rem; padding: 0 0.85rem; }
+  .m-logo { font-size: 1.4rem; padding: 0 0.7rem; flex-shrink: 0; }
   .m-tag { display: none; }
-  .m-period { flex: 1; padding: 0 0.5rem; gap: 0.25rem; justify-content: center; }
-  .period-label { font-size: 0.8rem; min-width: 72px; }
-  .period-arrow { width: 22px; height: 22px; }
-  .pmode-btn { font-size: 0.5rem; padding: 0.18rem 0.32rem; }
-  .m-balance { padding: 0 0.8rem; gap: 0.3rem; }
+  .m-period { flex: 1; min-width: 0; padding: 0 0.4rem; gap: 0.2rem; justify-content: center; overflow: hidden; }
+  .period-label { font-size: 0.75rem; min-width: 0; white-space: nowrap; }
+  .period-arrow { width: 20px; height: 20px; flex-shrink: 0; }
+  .pmode-btn { font-size: 0.48rem; padding: 0.16rem 0.28rem; }
+  .m-balance { padding: 0 0.6rem; gap: 0.25rem; flex-shrink: 0; }
   .m-balance-label { display: none; }
-  .m-balance-num { font-size: 1.15rem; }
+  .m-balance-num { font-size: 1rem; white-space: nowrap; }
 
   /* Hero — 2 col, hide net + budget */
   .hero { grid-template-columns: 1fr 1fr; }
